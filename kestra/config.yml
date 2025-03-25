@@ -1,0 +1,6 @@
+micronaut:
+  io:
+    watch:
+      enabled: true
+      paths:
+        - /app/flows
