@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: customer_analysis
+    description: ""
+    columns:
+      - name: customer_id
+        data_type: string
+        description: ""
+
+      - name: order_date
+        data_type: date
+        description: ""
+
+      - name: customer_type
+        data_type: string
+        description: ""
+
+      - name: total_spent
+        data_type: numeric
+        description: ""
+
+  - name: sales_performance
+    description: ""
+    columns:
+      - name: month
+        data_type: date
+        description: ""
+
+      - name: quarter
+        data_type: date
+        description: ""
+
+      - name: year
+        data_type: date
+        description: ""
+
+      - name: total_orders
+        data_type: int64
+        description: ""
+
+      - name: total_quantity
+        data_type: numeric
+        description: ""
+
+      - name: total_revenue
+        data_type: numeric
+        description: ""
+
+  - name: seasonal_trends
+    description: ""
+    columns:
+      - name: month
+        data_type: date
+        description: ""
+
+      - name: total_revenue
+        data_type: numeric
+        description: ""
+
+      - name: prev_month_revenue
+        data_type: numeric
+        description: ""
+
+      - name: month_growth_pct
+        data_type: numeric
+        description: ""
+
+  - name: top_products
+    description: ""
+    columns:
+      - name: product
+        data_type: string
+        description: ""
+
+      - name: category
+        data_type: string
+        description: ""
+
+      - name: total_units_sold
+        data_type: numeric
+        description: ""
+
+      - name: total_revenue
+        data_type: numeric
+        description: ""
