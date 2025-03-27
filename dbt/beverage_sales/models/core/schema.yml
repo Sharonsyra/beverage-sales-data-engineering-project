@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: ""
+    columns:
+      - name: sale_id
+        data_type: string
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: order_id
+        data_type: string
+        description: ""
+
+      - name: customer_id
+        data_type: string
+        description: ""
+
+      - name: customer_type
+        data_type: string
+        description: ""
+
+      - name: product
+        data_type: string
+        description: ""
+
+      - name: category
+        data_type: string
+        description: ""
+
+      - name: unit_price
+        data_type: numeric
+        description: ""
+
+      - name: quantity
+        data_type: numeric
+        description: ""
+
+      - name: discount
+        data_type: numeric
+        description: ""
+
+      - name: total_price
+        data_type: numeric
+        description: ""
+
+      - name: region
+        data_type: string
+        description: ""
+
+      - name: order_date
+        data_type: date
+        description: ""
