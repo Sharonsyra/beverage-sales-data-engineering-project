@@ -1,5 +1,13 @@
 version: 2
 
+sources:
+  - name: core
+    database: new-york-taxi-njoune
+    schema: zoomcamp_dataset
+
+    tables:
+      - name: synthetic_beverage_sales_data
+
 models:
   - name: fact_sales
     description: ""
