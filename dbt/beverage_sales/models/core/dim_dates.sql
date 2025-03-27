@@ -1,26 +1,30 @@
 {{ config(materialized='table') }}
 
-with distinct_dates as (
-    select distinct Order_Date
-    from {{ ref('fact_sales') }}
-    where Order_Date is not null
+WITH distinct_dates AS (
+    SELECT DISTINCT Order_Date
+    FROM {{ ref('fact_sales') }}
+    WHERE Order_Date IS NOT NULL
 ),
 
-date_details as (
-    select
+date_details AS (
+    SELECT
         Order_Date,
         EXTRACT(YEAR FROM Order_Date) AS Year,
         EXTRACT(QUARTER FROM Order_Date) AS Quarter,
         EXTRACT(MONTH FROM Order_Date) AS Month,
-        EXTRACT(DAYOFWEEK FROM Order_Date) AS Weekday -- Returns 1 (Sunday) to 7 (Saturday)
-    from distinct_dates
+        FORMAT_DATE('%B', Order_Date) AS Month_Name, -- 'January', 'February', etc.
+        EXTRACT(DAYOFWEEK FROM Order_Date) AS Weekday, -- 1 (Sunday) to 7 (Saturday)
+        CASE WHEN EXTRACT(DAYOFWEEK FROM Order_Date) IN (1, 7) THEN TRUE ELSE FALSE END AS is_weekend
+    FROM distinct_dates
 )
 
-select
-    {{ dbt_utils.generate_surrogate_key(['Order_Date']) }} as Date_ID,
+SELECT
+    {{ dbt_utils.generate_surrogate_key(['Order_Date']) }} AS Date_ID,
     Order_Date,
     Year,
     Quarter,
     Month,
-    Weekday
-from date_details
+    Month_Name,
+    Weekday,
+    is_weekend
+FROM date_details
