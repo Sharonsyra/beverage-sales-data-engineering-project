@@ -12,7 +12,7 @@ WITH first_order AS (
 
 SELECT
     s.Customer_ID,
-    s.Order_Date,
+    d.Order_Date,
     CASE
         WHEN s.Order_Date = f.first_order_date THEN 'New Customer'
         ELSE 'Returning Customer'
@@ -20,4 +20,5 @@ SELECT
     SUM(s.Total_Price) AS total_spent
 FROM {{ ref('fact_sales') }} s
 JOIN first_order f ON s.Customer_ID = f.Customer_ID
+JOIN {{ ref('dim_dates') }} d ON s.Order_Date = d.Order_Date
 GROUP BY 1, 2, 3

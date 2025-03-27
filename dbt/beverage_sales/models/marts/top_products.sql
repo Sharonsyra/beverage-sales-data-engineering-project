@@ -12,4 +12,4 @@ SELECT
 FROM {{ ref('fact_sales') }}
 GROUP BY 1, 2
 ORDER BY total_revenue DESC
-LIMIT 10
+LIMIT 100

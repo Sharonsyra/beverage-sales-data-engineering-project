@@ -6,20 +6,25 @@
 
 WITH sales AS (
     SELECT
-        DATE_TRUNC(Order_Date, MONTH) AS month,
-        SUM(Total_Price) AS total_revenue
-    FROM {{ ref('fact_sales') }}
-    GROUP BY 1
+        d.Year,
+        d.Month,
+        SUM(f.Total_Price) AS total_revenue
+    FROM {{ ref('fact_sales') }} f
+    JOIN {{ ref('dim_dates') }} d ON f.Order_Date = d.Order_Date
+    GROUP BY 1, 2
 ),
 prev_sales AS (
     SELECT
-        month,
+        Year,
+        Month,
         total_revenue,
-        LAG(total_revenue) OVER (ORDER BY month) AS prev_month_revenue
+        LAG(total_revenue) OVER (ORDER BY Year, Month) AS prev_month_revenue
     FROM sales
 )
+
 SELECT
-    month,
+    Year,
+    Month,
     total_revenue,
     prev_month_revenue,
     SAFE_DIVIDE(total_revenue - prev_month_revenue, prev_month_revenue) * 100 AS month_growth_pct
