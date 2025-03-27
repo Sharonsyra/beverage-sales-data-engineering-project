@@ -38,3 +38,6 @@ terraform.rc
 .idea
 logs/
 **/logs/
+*.ipynb
+**/.ipynb_checkpoints/
+synthetic_beverage_sales_data.csv

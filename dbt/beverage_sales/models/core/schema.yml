@@ -64,3 +64,27 @@ models:
       - name: order_date
         data_type: date
         description: ""
+
+  - name: dim_dates
+    description: "Date dimension extracted from fact_sales"
+    columns:
+      - name: Date_ID
+        description: "Surrogate key for dates"
+        tests:
+          - unique
+          - not_null
+
+      - name: Order_Date
+        description: "The actual order date"
+
+      - name: Year
+        description: "Year extracted from Order_Date"
+
+      - name: Quarter
+        description: "Quarter extracted from Order_Date"
+
+      - name: Month
+        description: "Month extracted from Order_Date"
+
+      - name: Weekday
+        description: "ISO weekday number (1 = Monday, 7 = Sunday)"
