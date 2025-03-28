@@ -26,5 +26,7 @@ SELECT
     Month,
     Month_Name,
     Weekday,
-    is_weekend
+    is_weekend,
+    DATE_TRUNC(Order_Date, MONTH) AS Month_Year,
+    CONCAT(Year, '-', 'Q', Quarter) AS Year_Quarter
 FROM date_details
