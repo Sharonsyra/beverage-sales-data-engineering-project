@@ -56,6 +56,6 @@ description: |
   ```yaml
   sources:
     - name: staging
-      database: new-york-taxi-njoune
-      schema: zoomcamp_dataset
+      database: "{{kv('GCP_PROJECT_ID')}}"
+      schema: "{{kv('GCP_DATASET')}}"
   ```

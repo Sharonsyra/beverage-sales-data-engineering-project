@@ -18,6 +18,7 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 .
 ├── README.md           # Project documentation
 ├── .env                # Environment variables (update as needed)
+├── .env.example        # Example environment file
 ├── dashboard           # Looker Studio dashboards
 ├── dbt                 # dbt transformation logic
 │   ├── beverage_sales  # dbt project directory
@@ -69,46 +70,99 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 ### Setup Instructions
 
 1. **Clone the repository**:
+
    ```bash
-   git clone https://github.com/Sharonsyra
+   git clone https://github.com/Sharonsyra/zoompcamp-project
+   cd zoomcamp-project
    ```
-2. **Deploy infrastructure with Terraform**:
+
+2. **Make a copy of the `.env.example` file and rename it to `.env`**:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Fill `.env` with your Google Cloud credentials**.
+
+4. **Run this script to set up secrets for Kestra**:
+
+   ```bash
+   x=15  # Change this to the line number you want to start from
+
+   awk "NR >= $x" .env | while IFS='=' read -r key value; do
+       echo "SECRET_$key=$(echo -n "$value" | base64)"
+   done >> .env  # Append to the existing .env file
+   ```
+
+5. **Deploy infrastructure with Terraform**:
+
    ```bash
    cd terraform
    terraform init
    terraform apply
    ```
-3. **Start Docker Services**:
+
+6. **Start Docker Services**:
+
    ```bash
    cd docker
    docker-compose --env-file ../.env up --build
    ```
-4. **Run dbt transformations**:
+
+7. **Run dbt transformations**:
+
    ```bash
    cd dbt/beverage_sales
    dbt run
    ```
-5. **Start Kestra workflows**:
+
+8. **Start Kestra workflows**:
+
    ```bash
    cd kestra
    kestra server start
    ```
-6. **Access dashboards in Looker Studio** (links above).
 
-### Adding GCP Credentials to Kestra's Keystore
+9. **Access dashboards in Looker Studio** (links above).
+
+## Adding GCP Credentials to Kestra's Keystore
 
 To securely store your Google Cloud Service Account JSON, follow these steps:
 
-1. Open the **Kestra UI**.
+1. Open the **Kestra UI** at [http://localhost:8080](http://localhost:8080).
 2. Navigate to **Namespaces** → **Keystore**.
 3. Select the **zoomcamp** namespace.
 4. Click **KV Store** and enter the following:
    - **Key:** `GCP_CREDS`
-   - **Type** `JSON`
+   - **Type:** `JSON`
    - **Value:** Paste the contents of your `service-account.json` file.
 5. Click **Save**.
 
 Once added, the service account credentials will be securely accessible inside Kestra workflows.
+
+## Running Kestra Flows
+
+1. **Load Kestra KV Store**
+
+   - Open **Kestra UI** at [http://localhost:8080](http://localhost:8080).
+   - Navigate to **Flows**.
+   - Select **`zoomcamp.gcp_kv`**.
+   - Click the **Execute** button (top-right).
+   - Ensure `GCS_CREDS` is set as pointed out in the instructions above.
+
+2. **Ingest Data**
+
+   - Open **Kestra UI** at [http://localhost:8080](http://localhost:8080).
+   - Navigate to **Flows**.
+   - Select **`zoomcamp.gcp_ingest_and_load`**.
+   - Click the **Execute** button (top-right).
+
+3. **Run dbt Transformations**
+
+   - Open **Kestra UI** at [http://localhost:8080](http://localhost:8080).
+   - Navigate to **Flows**.
+   - Select **`zoomcamp.gcp_dbt`**.
+   - Click the **Execute** button (top-right).
 
 ## Future Improvements
 

@@ -28,6 +28,8 @@ services:
 
   kestra:
     container_name: kestra
+    env_file:
+      - ../.env
     image: kestra/kestra:v0.20.7
     pull_policy: always
     restart: always

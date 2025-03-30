@@ -1,4 +1,4 @@
-id: gcp_scheduled
+id: gcp_ingest_and_load
 namespace: zoomcamp
 description: |
   Best to add a label `backfill:true` from the UI to track executions created via a backfill.
@@ -32,7 +32,7 @@ tasks:
     from: "{{render(vars.data)}}"
     to: "{{render(vars.gcs_file)}}"
 
-  - id: bq
+  - id: bq_table
     type: io.kestra.plugin.gcp.bigquery.Query
     sql: |
       CREATE TABLE IF NOT EXISTS `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}`
@@ -52,7 +52,7 @@ tasks:
       )
       PARTITION BY Order_Date;
 
-  - id: bq_ext
+  - id: bq_external_table
     type: io.kestra.plugin.gcp.bigquery.Query
     sql: |
       CREATE OR REPLACE EXTERNAL TABLE `{{kv('GCP_PROJECT_ID')}}.{{render(vars.table)}}_ext`
