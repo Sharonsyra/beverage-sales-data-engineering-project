@@ -25,13 +25,3 @@ tasks:
     key: GCP_DATASET
     kvType: STRING
     value: zoomcamp_dataset
-
-  - id: gcp_cred
-    type: io.kestra.plugin.core.kv.Set
-    key: GCP_CREDS
-    kvType: JSON
-    value: |
-      {
-        "type": "service_account",
-        "project_id": "...",
-      }

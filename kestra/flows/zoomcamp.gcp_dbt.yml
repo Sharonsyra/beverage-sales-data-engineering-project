@@ -1,0 +1,62 @@
+id: gcp_dbt
+namespace: zoomcamp
+inputs:
+  - id: dbt_command
+    type: SELECT
+    allowCustomValue: true
+    defaults: dbt build
+    values:
+      - dbt build
+      - dbt debug # use when running the first time to validate DB connection
+
+tasks:
+  - id: sync
+    type: io.kestra.plugin.git.SyncNamespaceFiles
+    url: https://github.com/Sharonsyra/zoompcamp-project
+    branch: main
+    namespace: "{{flow.namespace}}"
+    gitDirectory: dbt/beverage_sales
+    dryRun: false
+    disabled: false # Needed only on first run
+
+  - id: dbt-build
+    type: io.kestra.plugin.dbt.cli.DbtCLI
+    env:
+      DBT_DATABASE: "{{kv('GCP_PROJECT_ID')}}"
+      DBT_SCHEMA: "{{kv('GCP_DATASET')}}"
+    namespaceFiles:
+      enabled: true
+    containerImage: ghcr.io/kestra-io/dbt-bigquery:latest
+    taskRunner:
+      type: io.kestra.plugin.scripts.runner.docker.Docker
+    inputFiles:
+      sa.json: "{{kv('GCP_CREDS')}}"
+    commands:
+      - cd ../dbt/beverage_sales  # Change directory to where dbt_project.yml is
+      - dbt deps
+      - "{{ inputs.dbt_command }}"
+    storeManifest:
+      key: manifest.json
+      namespace: "{{ flow.namespace }}"
+    profiles: |
+      default:
+        outputs:
+          dev:
+            type: bigquery
+            dataset: "{{kv('GCP_DATASET')}}"
+            project: "{{kv('GCP_PROJECT_ID')}}"
+            location: "{{kv('GCP_LOCATION')}}"
+            keyfile: sa.json
+            method: service-account
+            priority: interactive
+            threads: 16
+            timeout_seconds: 300
+            fixed_retries: 1
+        target: dev
+description: |
+  ```yaml
+  sources:
+    - name: staging
+      database: new-york-taxi-njoune
+      schema: zoomcamp_dataset
+  ```
