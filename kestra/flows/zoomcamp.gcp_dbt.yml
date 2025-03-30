@@ -32,14 +32,13 @@ tasks:
     inputFiles:
       sa.json: "{{kv('GCP_CREDS')}}"
     commands:
-      - cd ../dbt/beverage_sales  # Change directory to where dbt_project.yml is
       - dbt deps
       - "{{ inputs.dbt_command }}"
     storeManifest:
       key: manifest.json
       namespace: "{{ flow.namespace }}"
     profiles: |
-      default:
+      beverage_sales:
         outputs:
           dev:
             type: bigquery
