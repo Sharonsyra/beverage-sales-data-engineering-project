@@ -17,6 +17,7 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 ```
 .
 ├── README.md           # Project documentation
+├── .env                # Environment variables (update as needed)
 ├── dashboard           # Looker Studio dashboards
 ├── dbt                 # dbt transformation logic
 │   ├── beverage_sales  # dbt project directory
@@ -77,17 +78,22 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    terraform init
    terraform apply
    ```
-3. **Run dbt transformations**:
+3. **Start Docker Services**:
+   ```bash
+   cd docker
+   docker-compose --env-file ../.env up --build
+   ```
+4. **Run dbt transformations**:
    ```bash
    cd dbt/beverage_sales
    dbt run
    ```
-4. **Start Kestra workflows**:
+5. **Start Kestra workflows**:
    ```bash
    cd kestra
    kestra server start
    ```
-5. **Access dashboards in Looker Studio** (links above).
+6. **Access dashboards in Looker Studio** (links above).
 
 ### Adding GCP Credentials to Kestra's Keystore
 
