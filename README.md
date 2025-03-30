@@ -94,7 +94,13 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    done >> .env  # Append to the existing .env file
    ```
 
-5. **Deploy infrastructure with Terraform**:
+5. **Set Environment Variables**:
+
+   ```bash
+   set -o allexport; source .env; set +o allexport
+   ```
+
+6. **Deploy infrastructure with Terraform**:
 
    ```bash
    cd terraform
@@ -102,28 +108,28 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    terraform apply
    ```
 
-6. **Start Docker Services**:
+7. **Start Docker Services**:
 
    ```bash
    cd docker
    docker-compose --env-file ../.env up --build
    ```
 
-7. **Run dbt transformations**:
+8. **Run dbt transformations**:
 
    ```bash
    cd dbt/beverage_sales
    dbt run
    ```
 
-8. **Start Kestra workflows**:
+9. **Start Kestra workflows**:
 
    ```bash
    cd kestra
    kestra server start
    ```
 
-9. **Access dashboards in Looker Studio** (links above).
+10. **Access dashboards in Looker Studio** (links above).
 
 ## Adding GCP Credentials to Kestra's Keystore
 

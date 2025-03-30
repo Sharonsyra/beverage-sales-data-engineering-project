@@ -5,7 +5,7 @@ description: |
   CSV data used here comes from: https://www.kaggle.com/api/v1/datasets/download/sebastianwillmann/beverage-sales
 
 variables:
-  data_name: "synthetic_beverage_sales_data"
+  data_name: "{{ secret('DATA_TABLE_NAME') }}"
   file: "{{render(vars.data_name)}}.csv"
   gcs_file: "gs://{{kv('GCP_BUCKET_NAME')}}/{{vars.file}}"
   table: "{{kv('GCP_DATASET')}}.{{render(vars.data_name)}}"
