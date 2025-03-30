@@ -89,6 +89,21 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    ```
 5. **Access dashboards in Looker Studio** (links above).
 
+### Adding GCP Credentials to Kestra's Keystore
+
+To securely store your Google Cloud Service Account JSON, follow these steps:
+
+1. Open the **Kestra UI**.
+2. Navigate to **Namespaces** → **Keystore**.
+3. Select the **zoomcamp** namespace.
+4. Click **KV Store** and enter the following:
+   - **Key:** `GCP_CREDS`
+   - **Type** `JSON`
+   - **Value:** Paste the contents of your `service-account.json` file.
+5. Click **Save**.
+
+Once added, the service account credentials will be securely accessible inside Kestra workflows.
+
 ## Future Improvements
 
 - Implement **data quality checks** using **Great Expectations**.
