@@ -119,6 +119,7 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 
    ```bash
    cd dbt/beverage_sales
+   dbt compile
    dbt run
    ```
 
@@ -169,6 +170,24 @@ Once added, the service account credentials will be securely accessible inside K
    - Navigate to **Flows**.
    - Select **`zoomcamp.gcp_dbt`**.
    - Click the **Execute** button (top-right).
+
+## Kestra Images
+
+gcp_dbt_flow
+
+![gcp_dbt_flow](./kestra/images/gcp_dbt.png)
+
+gcp_ingest_and_load
+
+![gcp_ingest_and_load](./kestra/images/gcp_ingest_and_load.png)
+
+gcp_kv
+
+![gcp_kv](./kestra/images/gcp_kv.png)
+
+zoomcamp_kv_store
+
+![zoomcamp_kv_store](./kestra/images/zoomcamp_kv_store.png)
 
 ## Future Improvements
 

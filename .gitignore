@@ -42,5 +42,5 @@ dbt/logs/dbt.log
 *.ipynb
 **/.ipynb_checkpoints/
 synthetic_beverage_sales_data.csv
-
+*.DS_Store
 .env
