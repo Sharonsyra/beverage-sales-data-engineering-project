@@ -192,6 +192,7 @@ Once added, the service account credentials will be securely accessible inside K
    - Navigate to **Flows**.
    - Select **`zoomcamp.gcp_dbt`**.
    - Click the **Execute** button (top-right).
+   - This only runs on my gcp instance given it is syncing from github, just an extra flow.
 
 ## Kestra Images
 
