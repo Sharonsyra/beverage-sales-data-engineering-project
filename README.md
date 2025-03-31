@@ -55,9 +55,21 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 ## Looker Studio Dashboards
 
 - **[Customer Analysis Dashboard](https://lookerstudio.google.com/s/vGrY7Oto0Bc)**
+
+![customer_analysis](./dashboards/images/customer_analysis.png)
+
 - **[Sales Performance Dashboard](https://lookerstudio.google.com/s/s3OlLa5uu4c)**
+
+![sales_performance](./dashboards/images/sales_performance.png)
+
 - **[Top Products Dashboard](https://lookerstudio.google.com/s/geizRYsycDU)**
+
+![top_products](./dashboards/images/top_products.png)
+
 - **[Seasonal Trends Dashboard](https://lookerstudio.google.com/s/gZJWip1OKGE)**
+
+![seasonal_trends](./dashboards/images/seasonal_trends.png)
+
 
 ## Deployment & Setup
 
@@ -115,7 +127,23 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    docker-compose --env-file ../.env up --build
    ```
 
-8. **Run dbt transformations**:
+8. **Updating `staging/schema.yml`**
+
+   Before running `dbt`, you must edit `dbt/beverage_sales/models/staging/schema.yml` with your GCP details. Update the following section:
+
+   ```yaml
+   sources:
+     - name: staging
+       database: <YOUR_GCP_PROJECT_ID>  # Replace with your actual GCP project ID
+       schema: <YOUR_GCP_DATASET>        # Replace with your actual BigQuery dataset
+
+       tables:
+         - name: <YOUR_DATA_TABLE_NAME>  # Replace with your actual table name
+   ```
+
+   Make sure the values match those in your `.env` file.
+
+9. **Run dbt transformations**:
 
    ```bash
    cd dbt/beverage_sales
@@ -123,12 +151,6 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
    dbt run
    ```
 
-9. **Start Kestra workflows**:
-
-   ```bash
-   cd kestra
-   kestra server start
-   ```
 
 10. **Access dashboards in Looker Studio** (links above).
 
