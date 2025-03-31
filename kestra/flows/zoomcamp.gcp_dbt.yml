@@ -33,6 +33,7 @@ tasks:
       sa.json: "{{kv('GCP_CREDS')}}"
     commands:
       - dbt deps
+      - dbt compile
       - "{{ inputs.dbt_command }}"
     storeManifest:
       key: manifest.json
