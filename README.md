@@ -87,7 +87,7 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 4. **Run this script to set up secrets for Kestra**:
 
    ```bash
-   x=15  # Change this to the line number you want to start from
+   x=23  # Change this to the line number you want to start from
 
    awk "NR >= $x" .env | while IFS='=' read -r key value; do
        echo "SECRET_$key=$(echo -n "$value" | base64)"
