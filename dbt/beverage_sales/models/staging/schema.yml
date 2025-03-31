@@ -1,10 +1,10 @@
 sources:
   - name: staging
-    database: "{{ env_var('GCP_PROJECT_ID') }}"  # Uses env variable for project ID
-    schema: "{{ env_var('GCP_DATASET') }}"  # Uses env variable for dataset
+    database: new-york-taxi-njoune
+    schema: zoomcamp_dataset
 
     tables:
-      - name: "{{ env_var('DATA_TABLE_NAME') }}"  # Uses env variable for table name
+      - name: synthetic_beverage_sales_data
 
 models:
   - name: stg_sales
