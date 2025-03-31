@@ -1,28 +1,29 @@
 variable "project" {
   description = "Project"
-  default = "new-york-taxi-njoune"
+  default = null
 }
 
 variable "region" {
   description = "Region"
-  default = "us-central1"
+  default = null
 }
 
 variable "location" {
   description = "Project Location"
-  default = "US"
+  default = null
 }
 
 variable "zone" {
-  default = "us-central1-c"
+  default = null
 }
 
 variable "bq_dataset_name" {
+  default = null
   description = "Dataset Name"
-  default = "zoomcamp_dataset"
 }
 
 variable "gcs_storage" {
+  default = null
   description = "Storage Bucket Name"
-  default = "zoomcamp-bucket-syra-2025"
+#  default = "zoomcamp-bucket-syra-2025"
 }
