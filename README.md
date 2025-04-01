@@ -84,8 +84,8 @@ This project is a **cloud-based data engineering pipeline** for analyzing bevera
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/Sharonsyra/zoompcamp-project
-   cd zoomcamp-project
+   git clone https://github.com/Sharonsyra/beverage-sales-data-engineering-project
+   cd beverage-sales-data-engineering-project
    ```
 
 2. **Make a copy of the `.env.example` file and rename it to `.env`**:
